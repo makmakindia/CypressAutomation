@@ -1,0 +1,11 @@
+/*
+Attribute   Locator
+1.   id         #idname ( Alternatively tagname.id)
+2. class        .classname( make sur no places in the class all places should be replaced with . )
+3. Tagname      Tagname.classname
+4. Atrribute    tagname[Attribute="Value"]
+*/
+
+/*
+
+*/
