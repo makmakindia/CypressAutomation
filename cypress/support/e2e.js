@@ -14,4 +14,20 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
+
+/*
+When to Use
+Good Use Cases
+1. Third-party script errors
+
+Example:
+
+Ads
+Analytics
+Chat widgets
+2. Known non-blocking application bug
+*/
+Cypress.on("uncaught:exception", (err, runnable) => {
+  return false;
+});
