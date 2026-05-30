@@ -5,6 +5,8 @@
   "username":"rahulshettyacademy",
   "password":"Learning@830$3mK2",
   "productName":"Nokia Edge",
+  "homepagetext":"Shop Name",
   "Country":"India",
-  "ordersuccessmsg":"Success!"
+  "ordersuccessmsg":"Success!",
+  "appurl":"https://rahulshettyacademy.com/loginpagePractise/"
 }

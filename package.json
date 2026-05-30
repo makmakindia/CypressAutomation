@@ -3,14 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run",
+    "headedtest": "npx cypress run --headed",
+    "chrometest": "npx cypress run --headed --browser chrome",
+    "firefoxtest": "npx cypress run --headed --browser firefox",
+    "ietest": "npx cypress run --headed --browser edge",
+    
+    "reportkeypomtest": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14  --browser chrome --spec cypress/e2e/demoexamples/*POM*.spec.js",
+    "reportkeypom": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14  --browser chrome --spec cypress/e2e/demoexamples/*POM.spec.js",
+    "pomtestheaded": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14 --headed --browser chrome --spec cypress/e2e/demoexamples/cy03e2eecommflowPOM.spec.js"
+  
   },
   "author": "Arun M",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "cypress": "^14.5.4",
-    "cypress-iframe": "^1.0.1",
+    
+    "cypress-mochawesome-reporter": "^3.8.4",
     "prettier": "^3.8.3"
   }
 }
