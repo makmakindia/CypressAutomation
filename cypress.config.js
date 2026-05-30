@@ -1,29 +1,28 @@
 const { defineConfig } = require("cypress");
 
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const {
+  addCucumberPreprocessorPlugin,
+} = require("@badeball/cypress-cucumber-preprocessor");
+const {
+  createEsbuildPlugin,
+} = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+
 module.exports = defineConfig({
-  projectId: 'necfck',
-  reporter: "cypress-mochawesome-reporter",
-
-  reporterOptions: {
-    charts: true,
-    reportPageTitle: "custom-title",
-    embeddedScreenshots: true,
-    inlineAssets: true,
-    saveAllAttempts: false,
-  },
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-      require("cypress-mochawesome-reporter/plugin")(on);
-    },
-    testIsolation: false,
-    chromeWebSecurity: false,
+    specPattern: "cypress/e2e/demoexamples/BDD/*.feature",
 
-    specPattern: "cypress/e2e/demoexamples/*.spec.js",
-    screenshotOnRunFailure: true,
-    screenshotsFolder: "cypress/failure/screenshots",
-    video: true,
-    videoCompression: 32,
-    videosFolder: "cypress/videos",
+    async setupNodeEvents(on, config) {
+      await addCucumberPreprocessorPlugin(on, config);
+
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
+        }),
+      );
+
+      return config;
+    },
   },
 });

@@ -8,19 +8,19 @@
     "chrometest": "npx cypress run --headed --browser chrome",
     "firefoxtest": "npx cypress run --headed --browser firefox",
     "ietest": "npx cypress run --headed --browser edge",
-    
     "reportkeypomtest": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14  --browser chrome --spec cypress/e2e/demoexamples/*POM*.spec.js",
     "reportkeypom": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14  --browser chrome --spec cypress/e2e/demoexamples/*POM.spec.js",
     "pomtestheaded": "npx cypress run --record --key 3a46877a-6128-4dd3-884f-a5eda1350b14 --headed --browser chrome --spec cypress/e2e/demoexamples/cy03e2eecommflowPOM.spec.js"
-  
   },
   "author": "Arun M",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^23.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "cypress": "^14.5.4",
-    
     "cypress-mochawesome-reporter": "^3.8.4",
+    "esbuild": "^0.28.0",
     "prettier": "^3.8.3"
   }
 }

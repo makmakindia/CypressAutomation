@@ -1,234 +1,105 @@
-# Cypress Automation Notes
-
-## Overview
-
-This document contains basic Cypress automation concepts, commands, configurations, assertions, locators, and examples.
-
-
-# Summary
-
-This README contains:
-
-* Cypress basics
-* Mocha framework structure
-* Assertions
-* Locators
-* Cypress commands
-* Asynchronous handling
-* Alias usage
-* Logging
-* Configuration setup
-* Web element testing
+# Cypress Topics Summary
 
 ---
 
-# 1. Cypress + Mocha Framework
-
-Cypress uses the **Mocha Framework** for structuring tests.
-
-```javascript
-describe('Test Suite', () => {
-
-  it('Test Case', () => {
-
-  })
-
-})
-```
-
-* `describe()` → Test Suite
-* `it()` → Test Case
+S.No Topic Description
 
 ---
 
-# 2. `cy.visit()`
+1 Cypress + Mocha `describe()` = Test Suite, `it()` = Test Case
+Framework
 
-Used to open/browse a portal URL.
+2 `cy.visit()` Used to browse/open application URL.
 
-```javascript
-cy.visit('https://example.com')
-```
+3 Assertions `cy.get('.products').should('have.length',4)`
 
----
+4 Element Visibility `cy.get('.products:visible').should('have.length',4)`
+Check
 
-# 3. Assertions
+5 `cypress.config.js` Configure specPattern, screenshots, videos, folders,
+retries, etc.
 
-Used to validate expected behavior.
+6 `get()`, `find()`, `get()` searches page level, `find()` searches within
+`eq()` parent element, `eq(2)` selects the 3rd element.
 
-```javascript
-cy.get('.products').should('have.length', 4)
-```
+7 `each()` Iterates through all matching elements.
 
----
+8 `cy.wrap()` Converts jQuery element into Cypress chainable object.
 
-# 4. Element Visibility Check (jQuery)
+9 Cypress Asynchronous Commands are queued and executed sequentially by
+Nature Cypress.
 
-Check visible elements using jQuery selector.
+10 Manual Promise Use `.then()` to access returned values and perform
+Handling actions.
 
-```javascript
-cy.get('.products:visible').should('have.length', 4)
-```
+11 jQuery `text()` Access element text inside `.then()`.
 
----
+12 Alias Reuse locators using `.as()` and `@alias`.
 
-# 5. `cypress.config.js` Configurations
+13 `console.log()` vs Browser console vs Cypress Test Runner logs.
+`cy.log()`
 
-```javascript
-specPattern: 'cypress/e2e/demoexamples/*.spec.js',
+14 Locators ID, Class, Tag+Class, Attribute locators.
 
-screenshotOnRunFailure: true,
+15 Web Elements Testing Dropdowns, Dynamic Dropdowns, Checkboxes, Radio
+Buttons.
 
-screenshotsFolder: 'cypress/failure/screenshots',
+16 Visible / Invisible `be.visible`, `not.be.visible`.
+Checks
 
-video: true,
+17 Alerts & Handle using `window:alert` and `window:confirm`.
+Confirmations
 
-videoCompression: 32,
+18 Child Tabs Handling Use `invoke('removeAttr','target')` and `cy.origin()`.
 
-videosFolder: 'cypress/videos'
-```
+19 Web Tables Iterate rows and validate values.
 
-Run Cypress:
+20 Mouse Hover Use `invoke('show')` or `click({force:true})`.
 
-```bash
-npx cypress run
-```
+21 iFrame Handling Use `cy.frameLoaded()` and `cy.iframe()`.
 
----
+22 End-to-End (E2E) Flow Product selection, cart validation, checkout.
 
-# 6. `get()` vs `find()` vs `eq()`
+23 Fixtures Read test data using `cy.fixture()`.
 
-```javascript
-cy.get('.products')
-  .find('.product')
-  .eq(2)
-```
+24 Page Object Model Reusable and maintainable automation framework.
+(POM)
 
-### Notes
+25 Mochawesome Reporter HTML reports with screenshots and logs.
 
-* `get()` → Searches from entire page scope
-* `find()` → Searches within a specific area
-* `eq(2)` → Selects the 3rd element (index starts from 0)
+26 Cypress Cloud Record runs using `--record --key`.
+Integration
 
----
+27 `package.json` Reusable execution commands.
+Scripts
 
-# 7. `each()` Function
+28 Jenkins Integration CI/CD execution of Cypress tests.
 
-Iterates through listed elements.
+29 BDD Framework `cypress-cucumber-preprocessor`.
 
-```javascript
-cy.get('.products')
-  .find('.product')
-  .each(($e1, index, $list) => {
-
-  })
-```
+30 Cucumber HTML Reports Generate HTML reports from Cucumber results.
 
 ---
 
-# 8. `cy.wrap()`
+## Quick Commands Reference
 
-Used to wrap non-Cypress objects and resolve automation promises.
-
-```javascript
-cy.wrap($e1)
-  .find('button')
-  .click()
-```
+Feature Example
 
 ---
 
-# 9. Cypress Asynchronous Nature
-
-Cypress executes commands asynchronously similar to JavaScript execution flow.
-
-* Executes commands in sequence
-* Handles internal waiting automatically
-
----
-
-# 10. Manual Promise Handling using `then()`
-
-```javascript
-cy.get('.brand').then(function(logoelement) {
-  cy.log(logoelement.text())
-})
-```
-
-Used to manually resolve values from Cypress commands.
-
----
-
-# 11. `cy.log()` with jQuery `text()`
-
-```javascript
-cy.log(logoelement.text())
-```
-
-### Notes
-
-* `text()` is a jQuery command
-* Cypress supports jQuery methods
-* Errors like `text() is not a function` happen if object type is incorrect
-
----
-
-# 12. Alias in Cypress
-
-```javascript
-cy.get('.products').as('productsLocator')
-
-cy.get('@productsLocator')
-  .find('.product')
-```
-
-Aliases are used to reuse locators.
-
----
-
-# 13. `console.log()` vs `cy.log()`
-
-| Command         | Output Location          |
-| --------------- | ------------------------ |
-| `console.log()` | Browser DevTools Console |
-| `cy.log()`      | Cypress Test Runner      |
-
----
-
-# 14. Locators in Cypress
-
-```javascript
-/*
-Attribute            Locator
-
-1. id                #idname
-                     or tagname#idname
-
-2. class             .classname
-                     Replace spaces with .
-
-3. Tagname           tagname.classname
-
-4. Attribute         tagname[Attribute="Value"]
-*/
-```
-
----
-
-# 15. Web Elements Testing
-
-Common web element interactions:
-
-```javascript
-cy.get('input').type('Hello')
-
-cy.get('button').click()
-
-cy.get('checkbox').check()
-
-cy.get('radio').check()
-
-cy.get('dropdown').select('Option')
-```
-
----
-
+Open URL `cy.visit('https://example.com')`
+Assertion `should('have.length',4)`
+Alias `cy.get('.products').as('products')`
+Iterate Elements `each(($el,index)=>{})`
+Handle Promise `.then((el)=>{})`
+Wrap Element `cy.wrap($el)`
+Dropdown `.select('option2')`
+Checkbox `.check()`
+Alert `cy.on('window:alert', callback)`
+Child Tab `.invoke('removeAttr','target')`
+iFrame `cy.frameLoaded()` + `cy.iframe()`
+Fixture `cy.fixture('example')`
+Cloud Run `npx cypress run --record --key <key>`
+Jenkins Run `npm ci && npx cypress verify && npm run test`
+Mochawesome `npm install --save-dev cypress-mochawesome-reporter`
+Cucumber `npm install --save-dev cypress-cucumber-preprocessor`
