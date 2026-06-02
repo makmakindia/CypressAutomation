@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("JWTlogin", () => {
+  cy.request({
+    method: "POST",
+    url: "https://rahulshettyacademy.com/api/ecom/auth/login",
+    body: {
+      userEmail: "mkarun1122@gmail.com",
+      userPassword: "Nerfly96*",
+    },
+  }).then((response) => {
+    expect(response.status).to.equal(200);
+    Cypress.env("token", response.body.token);
+  });
+});

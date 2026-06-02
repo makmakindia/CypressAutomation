@@ -10,7 +10,7 @@ const {
 
 module.exports = defineConfig({
   e2e: {
-    specPattern: "cypress/e2e/demoexamples/BDD/*.feature",
+    specPattern: "cypress/e2e/**/*.js",
 
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
