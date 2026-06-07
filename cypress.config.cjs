@@ -8,6 +8,8 @@ const {
   createEsbuildPlugin,
 } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
 
+const { default: neatCSV } = require("neat-csv");
+
 module.exports = defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.js",
@@ -15,12 +17,13 @@ module.exports = defineConfig({
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
 
-      on(
-        "file:preprocessor",
-        createBundler({
-          plugins: [createEsbuildPlugin(config)],
-        }),
-      );
+        on("task", {
+        async parseCSV(csv) {
+          const data = await neatCSV(csv);
+          return data;
+        }
+      });
+
 
       return config;
     },
