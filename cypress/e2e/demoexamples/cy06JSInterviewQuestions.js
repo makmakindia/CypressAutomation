@@ -86,3 +86,78 @@ myArray.shift(); // myArray is now [2, 3]
 console.log(myArray); // Output: [2, 3]
 myArray.unshift(0); // myArray is now [0, 2, 3]
 console.log(myArray); // Output: [0, 2, 3]
+
+// console.log(myArray.splice(1)); // Output: 4 (new length of the array)
+myArray.forEach((element) => {
+  console.log(element); // Output: 0, 2, 3
+});
+
+console.log(myArray); // Output: 4 (new length of the array)
+
+// 6. is JavaScript Asynchronous? prove it with example
+// Yes, JavaScript is asynchronous. This means that JavaScript can execute code without blocking the main thread,
+//  allowing for tasks to be performed in the background while other code continues to run.
+// One common way to demonstrate this is by using `setTimeout`, which allows you to schedule a function to
+// be executed after a certain amount of time has passed.
+console.log("Start");
+setTimeout(() => {
+  console.log("This is an asynchronous message");
+}, 2000);
+console.log("End");
+// In this example, the `setTimeout` function schedules the anonymous function to be executed after 2000 milliseconds (2 seconds). The output will be:
+// Start
+// End
+// This is an asynchronous message
+// This demonstrates that the code continues to execute while waiting for the asynchronous operation (the timeout) to complete.
+
+//7. what are callback functions in javascript? explain with example
+// Callback functions in JavaScript are functions that are passed as arguments to other functions and are executed after a certain event or condition is met. They are commonly used for handling asynchronous operations, such as API calls, timers, or event listeners.
+// Example:
+function fetchData(callback) {
+  setTimeout(() => {
+    const data = "Data fetched from server";
+    callback(data); // Call the callback function with the fetched data
+  }, 2000); // Simulate an asynchronous operation with a timeout
+}
+function displayData(data) {
+  console.log(data); // Output the data received from the callback
+}
+
+function modifyData(data) {
+  console.log(data.toUpperCase()); // Output the modified data (in uppercase)
+}
+
+fetchData(displayData); // Pass the display
+fetchData(modifyData); // Pass the modifyData function as a callback to fetchData
+
+//Data function as a callback to fetchData
+// In this example, the `fetchData` function simulates an asynchronous operation (fetching data from a server) using `setTimeout`. Once the data is "fetched", it calls the provided callback function (`displayData`) with the fetched data as an argument. The `displayData` function then logs the data to the console. This demonstrates how callback functions allow us to handle asynchronous operations in JavaScript.
+
+//8 What are promises in JavaScript? explain with example
+// Promises in JavaScript are objects that represent the eventual completion (or failure) of an asynchronous operation
+// and its resulting value. They provide a cleaner and more manageable way to handle asynchronous code compared
+// to traditional callback functions.
+// A promise can be in one of three states:
+// 1. Pending: The initial state, neither fulfilled nor rejected.
+// 2. Fulfilled: The operation completed successfully, and the promise has a resulting value.
+// 3. Rejected: The operation failed, and the promise has a reason for the failure (usually an error).
+// Example:
+function fetchData1() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const data = "Data fetched from server";
+      resolve(data); // Resolve the promise with the fetched data
+    }, 2000); // Simulate an asynchronous operation with a timeout
+  });
+}
+
+// In this example, the `fetchData` function returns a new promise. Inside the promise,
+// we simulate an asynchronous operation using `setTimeout`. If the operation is successful,
+// we call `resolve` with the fetched data. If there were an error, we would call `reject` with an error message.
+// We then call `fetchData()` and use the `.then()` method to handle the fulfilled state of the promise,
+// logging the data to the console. If there were an error, we would use the `.catch()` method to handle the
+// rejected state and log the error message. This demonstrates how promises provide a structured way to
+// handle asynchronous operations in JavaScript.
+
+//9.Crate an inhritance between parent and child class in javascript, invok parent constructor in the child class
+//
